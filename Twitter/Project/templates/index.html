@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Twitter Sentiment Analysis</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+	<!--	
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/tooplate-gymso-style.css">	
+	-->
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/aos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/tooplate-gymso-style.css') }}">
+
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+
+            <a class="navbar-brand" href="#home">Twitter Sentiment Analysis</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link smoothScroll">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link smoothScroll">About</a>
+                    </li>
+					
+                    <li class="nav-item">
+                        <a href="#tryout" class="nav-link smoothScroll">Try out</a>
+                    </li>					
+            </div>
+        </div>
+    </nav>
+
+
+     <!-- INDEX -->
+     <section class="hero d-flex flex-column justify-content-center align-items-center" id="home">
+            <div class="bg-overlay"></div>
+			<div class="container">
+				<div class="row">
+					 <div class="col-lg-8 col-md-10 mx-auto col-12">
+						  <div class="hero-text mt-5 text-center">
+							<h6 data-aos="fade-up" data-aos-delay="300">AI is here to predict your mood!</h6>
+							<a href="#tryout" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Try out</a>
+							<a href="#about" class="btn custom-btn bordered mt-3" data-aos="fade-up" data-aos-delay="700">learn more</a>
+						  </div>
+					 </div>
+				</div>
+		   </div>
+     </section>
+
+     <!-- ABOUT -->
+     <section class="about section" id="about">
+               <div class="container">
+                    <div class="row">
+                            <div class="mt-lg-5 mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">
+                                <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Twitter Sentiment Analysis</h2>
+                                <p data-aos="fade-up" data-aos-delay="400">We are here to analyse and predict your mood from your Tweets! Beware!</p>
+                            </div>
+
+                            <div class="ml-lg-auto col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
+                                <div class="sample-1">
+                                    <img src="{{ url_for('static',filename='images/reference/image-1.jpeg') }}" class="img-fluid" alt="Info">
+									<!-- <img src="images/reference/image-1.jpeg" class="img-fluid" alt="Info"> -->
+                                </div>
+                            </div>					
+                    </div>
+               </div>
+     </section>
+	
+     <section class="feature" id="tryout">
+        <div class="container">
+		<div class="row">
+			<div class="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">
+				<h2 class="mb-3 text-white" data-aos="fade-up">Wanna try?</h2>
+				<h6 class="mb-4 text-white" data-aos="fade-up">Just enter a tweet here and get ready to be amazed!</h6>
+				<form action='/tpredict' id="tweetForm">
+					<input type="text" class="form-control" name="tweet" placeholder="Tweet" required>
+					<h6 class="mb-3 text-white" data-aos="fade-up" id="result"></h6>
+					<button type="submit" class="form-control" id="submit-button" name="submit">Predict</button>
+				</form>
+			</div>
+		</div>
+    </section>
+
+<script>
+    $( "#tweetForm" ).submit(function( event ) {
+      event.preventDefault();
+      var $form = $( this ),
+        term = $form.find( "input[name='tweet']" ).val(),
+        url = $form.attr( "action" );
+      var posting = $.post( url, { tweet: term } );
+      posting.done(function( data ) {
+        $( "#result" ).empty().append( data );
+      });
+    });
+</script>
+
+	<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/aos.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/smoothscroll.js') }}"></script>
+	<script src="{{ url_for('static',filename='js/custom.js') }}"></script>
+
+	<!--
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/smoothscroll.js"></script>
+	<script src="js/custom.js"></script>
+	-->
+	
+</body>
+</html>
